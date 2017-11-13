@@ -379,8 +379,15 @@ namespace Wox.Plugin.Program.Programs
             }
             var unregistered = UnregisteredPrograms(settings.ProgramSources, settings.ProgramSuffixes);
             programs = programs.Concat(unregistered);
+            var blacklist = new string[]
+            {
+                "uninstall",
+                "release notes",
+                "readme"
+            };
+            bool inBlacklist(string s) => blacklist.Any(b => s.IndexOf(b, StringComparison.CurrentCultureIgnoreCase) >= 0);
             //.Select(ScoreFilter);
-            return programs.ToArray();
+            return programs.ToArray().Where(p => !inBlacklist(p.FullPath) && !inBlacklist(p.Description)).ToArray();
         }
     }
 }
