@@ -59,7 +59,7 @@ namespace Wox.Plugin.Folder
                             {
                                 try
                                 {
-                                    Process.Start(item.Path);
+                                    Process.Start(@"c:\totalcmd\TOTALCMD64.EXE", $"/O /L=\"{item.Path}\"");
                                     return true;
                                 }
                                 catch (Exception ex)
